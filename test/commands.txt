@@ -1,0 +1,5 @@
+run program:
+cc Fibonacci.c -o fib -Wall -Wextra && ./fib
+
+Open program
+code Fibonacci.c
