@@ -13,3 +13,13 @@ rm -r directory_name
 Git remote:
 git remote add origin https://github.com/Husted42/HPPS.git
 
+### Download contents from a remote repository: 
+git fetch origin <branch> 
+
+### Push guide:
+git pull 
+git status 
+gcc <filename>.c -o <name> && ./<name> #adsf
+git status
+git add . 
+git status 
