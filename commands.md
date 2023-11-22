@@ -1,4 +1,4 @@
-### Ubuntu commands
+# Ubuntu commands
 run program:
 cc Fibonacci.c -o fib -Wall -Wextra && ./fib
 
@@ -9,14 +9,14 @@ Delete program/dir:
 rm file_name
 rm -r directory_name
 
-### Git commands
+# Git commands
 Git remote:
 git remote add origin https://github.com/Husted42/HPPS.git
 
-### Download contents from a remote repository: 
+# Download contents from a remote repository: 
 git fetch origin <branch> 
 
-### Push guide:
+# Push guide:
 git pull 
 git status 
 gcc <filename>.c -o <name> && ./<name> #adsf
