@@ -23,11 +23,11 @@ git remote add origin https://github.com/Husted42/HPPS.git
 ```
 git fetch origin <branch>
 ``` 
-#### Branch overview 
+#### Branch overview:
 ```
 git branch -r
 ```
-#### Switch branch 
+#### Switch branch:
 ```
 git switch <branch>
 ```
