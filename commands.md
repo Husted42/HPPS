@@ -57,3 +57,7 @@ git commit -m "comment"
 ```
 git push 
 ```
+#### Store credentials
+```
+git config --global credential.helper cache
+```
