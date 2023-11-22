@@ -3,7 +3,7 @@ High Performance Programming and Systems
 
 # Setup
 ## Windows with VScode
-c++ for VS code with compiler.
+mingw for VS code with compiler.
 https://code.visualstudio.com/docs/cpp/config-mingw
 (If it doesn't work restart PC)
 
