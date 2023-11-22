@@ -14,9 +14,9 @@ https://github.com/MicrosoftDocs/WSL/issues/1296#issuecomment-1019314186
 
 ## Github
 Install:
-sudo apt-get install git-all \\
-mkdir hpps && cd hpps/ \\
-git init \\
-git remote add origin https://github.com/Husted42/HPPS.git \\
-git pull && git switch main && git pull \\
+sudo apt-get install git-all <br>
+mkdir hpps && cd hpps/ <br>
+git init <br>
+git remote add origin https://github.com/Husted42/HPPS.git <br>
+git pull && git switch main && git pull <br>
 
