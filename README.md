@@ -17,7 +17,7 @@ https://github.com/MicrosoftDocs/WSL/issues/1296#issuecomment-1019314186
 sudo apt-get install git-all <br>
 ```
 ```
-mkdir hpps \&\& cd hpps/ <br>
+mkdir hpps && cd hpps/ <br>
 ```
 ```
 git init <br>
