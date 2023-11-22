@@ -1,11 +1,11 @@
 ## Ubuntu commands
 #### Run program: 
 ```
-cc Fibonacci.c -o fib -Wall -Wextra && ./fib
+cc <filename>.c -o <name> -Wall -Wextra && ./<name>
 ```
-#### Open program:
+#### Open VS code:
 ```
-code Fibonacci.c
+code <filename>.c
 ```
 #### Delete program/dir:
 ```
@@ -23,6 +23,15 @@ git remote add origin https://github.com/Husted42/HPPS.git
 ```
 git fetch origin <branch>
 ``` 
+#### Branch overview 
+```
+git branch -r
+```
+#### Switch branch 
+```
+git switch <branch>
+```
+
 ## Push/commit guide
 #### Pull any changes:
 ```
