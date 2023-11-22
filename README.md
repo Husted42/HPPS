@@ -12,3 +12,11 @@ Error: 0xc004000d:
 https://github.com/MicrosoftDocs/WSL/issues/1296#issuecomment-1019314186
 (restart)
 
+## Github
+Install:
+sudo apt-get install git-all \\
+mkdir hpps && cd hpps/ \\
+git init \\
+git remote add origin https://github.com/Husted42/HPPS.git \\
+git pull && git switch main && git pull \\
+
