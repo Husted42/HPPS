@@ -1,5 +1,5 @@
 # Ubuntu commands
-run program:
+run program: \n
 cc Fibonacci.c -o fib -Wall -Wextra && ./fib
 
 Open program:
