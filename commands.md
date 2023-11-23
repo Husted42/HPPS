@@ -19,7 +19,7 @@ rm -r directory_name
 ```
 git remote add origin https://github.com/Husted42/HPPS.git 
 ```
-#### Download contents from a remote repository:
+#### Download contents from a remote repository: (fetch + merge = pull)
 ```
 git fetch origin <branch>
 ``` 
@@ -33,7 +33,7 @@ git switch <branch>
 ```
 
 ## Push/commit guide
-#### Pull any changes:
+#### Pull any changes: 
 ```
 git pull
 ```
