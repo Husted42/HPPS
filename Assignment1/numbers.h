@@ -77,5 +77,6 @@ struct bits8 bits8_add(struct bits8 x, struct bits8 y){
   return z;
 }
 
+
 struct bits8 bits8_negate(struct bits8 x);
 struct bits8 bits8_mul(struct bits8 x, struct bits8 y);
