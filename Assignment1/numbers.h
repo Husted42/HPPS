@@ -76,7 +76,21 @@ struct bits8 bits8_add(struct bits8 x, struct bits8 y){
   c = bit_or(bit_and(x.b7, y.b7), bit_and(bit_xor(x.b7, y.b7), c));
   return z;
 }
+//Negate bits8 as the arithmetic operation multiplying by -1 
+// Bitwise negation and then add 1
+bits8_negate(struct bits8 x){
+  struct bits8 y;
+  y.b0 = bit_not(x.b0);
+  y.b1 = bit_not(x.b1);
+  y.b2 = bit_not(x.b2);
+  y.b3 = bit_not(x.b3);
+  y.b4 = bit_not(x.b4);
+  y.b5 = bit_not(x.b5);
+  y.b6 = bit_not(x.b6);
+  y.b7 = bit_not(x.b7);
+  return bits8_add(y, bits8_from_int(1));
+}
 
 
-struct bits8 bits8_negate(struct bits8 x);
+
 struct bits8 bits8_mul(struct bits8 x, struct bits8 y);
