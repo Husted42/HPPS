@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include "bits.h"
 
+
 struct bits8 {
   struct bit b0; // Least significant bit
   struct bit b1;
@@ -54,6 +55,7 @@ void bits8_print(struct bits8 v){
   bit_print(v.b1);
   bit_print(v.b0);
 }
+
 // used formular from assignment
 struct bits8 bits8_add(struct bits8 x, struct bits8 y){
   struct bits8 z;
@@ -76,9 +78,10 @@ struct bits8 bits8_add(struct bits8 x, struct bits8 y){
   c = bit_or(bit_and(x.b7, y.b7), bit_and(bit_xor(x.b7, y.b7), c));
   return z;
 }
-//Negate bits8 as the arithmetic operation multiplying by -1 
+
+// Negate bits8 as the arithmetic operation multiplying by -1 
 // Bitwise negation and then add 1
-bits8_negate(struct bits8 x){
+struct bits8 bits8_negate(struct bits8 x){
   struct bits8 y;
   y.b0 = bit_not(x.b0);
   y.b1 = bit_not(x.b1);
@@ -91,6 +94,38 @@ bits8_negate(struct bits8 x){
   return bits8_add(y, bits8_from_int(1));
 }
 
+// switches bits8 to left by n bits
+struct bits8 l_shift(struct bits8 x, int n){
+  return bits8_from_int(bits8_to_int(x) << n);
+}
 
+//Function that returns an empty bits8 if bit_arg is 0, otherwise returns x
+struct bits8 bits8_if(struct bits8 x, struct bit bit_arg){
+  struct bits8 y;
+  y.b0 = bit_and(bit_arg, x.b0);
+  y.b1 = bit_and(bit_arg, x.b1);
+  y.b2 = bit_and(bit_arg, x.b2);
+  y.b3 = bit_and(bit_arg, x.b3);
+  y.b4 = bit_and(bit_arg, x.b4);
+  y.b5 = bit_and(bit_arg, x.b5);
+  y.b6 = bit_and(bit_arg, x.b6);
+  y.b7 = bit_and(bit_arg, x.b7);
+  return y;
+}
 
-struct bits8 bits8_mul(struct bits8 x, struct bits8 y);
+struct bits8 bits8_mul(struct bits8 x, struct bits8 y){
+  struct bits8 a = x;
+  struct bits8 b = y;
+  struct bits8 c;
+
+  c = b;
+  c = bits8_add(c, bits8_if(l_shift(b, 1), a.b1));
+  c = bits8_add(c, bits8_if(l_shift(b, 2), a.b2));
+  c = bits8_add(c, bits8_if(l_shift(b, 3), a.b3));
+  c = bits8_add(c, bits8_if(l_shift(b, 4), a.b4));
+  c = bits8_add(c, bits8_if(l_shift(b, 5), a.b5));
+  c = bits8_add(c, bits8_if(l_shift(b, 6), a.b6));
+  c = bits8_add(c, bits8_if(l_shift(b, 7), a.b7));
+  return c;
+}
+
