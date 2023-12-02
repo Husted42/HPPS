@@ -90,11 +90,73 @@ int test_multipliction(){
   return 0;
 }
 
+int test_additon_negative() {
+  struct bits8 a; // -1
+  a.b0 = bit_from_int(1);
+  a.b1 = bit_from_int(1);
+  a.b2 = bit_from_int(1);
+  a.b3 = bit_from_int(1);
+  a.b4 = bit_from_int(1);
+  a.b5 = bit_from_int(1);
+  a.b6 = bit_from_int(1);
+  a.b7 = bit_from_int(1);
+  struct bits8 b; // -2
+  b.b0 = bit_from_int(0);
+  b.b1 = bit_from_int(1);
+  b.b2 = bit_from_int(1);
+  b.b3 = bit_from_int(1);
+  b.b4 = bit_from_int(1);
+  b.b5 = bit_from_int(1);
+  b.b6 = bit_from_int(1);
+  b.b7 = bit_from_int(1);
+
+  printf("---- Test for negative addition: -----\n");
+  bits8_print(a);
+  printf(" + ");
+  bits8_print(b);
+  printf(" = ");
+  bits8_print(bits8_add(a, b));
+  printf("\n\n");
+  return 0;
+
+}
+
+int test_multiplication_negative() {
+  struct bits8 a; // -1
+  a.b0 = bit_from_int(1);
+  a.b1 = bit_from_int(1);
+  a.b2 = bit_from_int(1);
+  a.b3 = bit_from_int(1);
+  a.b4 = bit_from_int(1);
+  a.b5 = bit_from_int(1);
+  a.b6 = bit_from_int(1);
+  a.b7 = bit_from_int(1);
+  struct bits8 b; // -2
+  b.b0 = bit_from_int(0);
+  b.b1 = bit_from_int(1);
+  b.b2 = bit_from_int(1);
+  b.b3 = bit_from_int(1);
+  b.b4 = bit_from_int(1);
+  b.b5 = bit_from_int(1);
+  b.b6 = bit_from_int(1);
+  b.b7 = bit_from_int(1);
+
+  printf("---- Test for negative multiplication: -----\n");
+  bits8_print(a);
+  printf(" * ");
+  bits8_print(b);
+  printf(" = ");
+  bits8_print(bits8_mul(a,b));
+  return 1;
+}
+
 int main() {
-  test_bits8_from_to_int();
-  test_additon();
-  testNegation();
-  test_multipliction();
+  // test_bits8_from_to_int();
+  // test_additon();
+  // testNegation();
+  // test_multipliction();
+  // test_additon_negative();
+  test_multiplication_negative();
   printf("\n\nhello world!\n");
   return 0;
 }
