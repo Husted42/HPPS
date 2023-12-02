@@ -1,7 +1,8 @@
 #include "numlib.h"
 #include <assert.h>
 
-
+// Can be tested by running: echo 123 456 789 | ./uint_ascii_to_uint_be | ./uint_be_to_uint_ascii
+// The output should be: 123\n 0123\n 456\n 0456\n 789\n 0789\n
 int main(int argc, char* argv[]) {
   assert(argc == 1);
   while (1) {
