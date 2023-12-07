@@ -78,7 +78,7 @@ struct bits8 bits8_add(struct bits8 x, struct bits8 y){
 }
 //Negate bits8 as the arithmetic operation multiplying by -1 
 // Bitwise negation and then add 1
-bits8_negate(struct bits8 x){
+struct bits8 bits8_negate(struct bits8 x){
   struct bits8 y;
   y.b0 = bit_not(x.b0);
   y.b1 = bit_not(x.b1);
@@ -91,6 +91,32 @@ bits8_negate(struct bits8 x){
   return bits8_add(y, bits8_from_int(1));
 }
 
+//Left shift bits8 by 1
+struct bits8 bits8_shl(struct bits8 x){
+  struct bits8 y;
+  y.b0 = x.b1;
+  y.b1 = x.b2;
+  y.b2 = x.b3;
+  y.b3 = x.b4;
+  y.b4 = x.b5;
+  y.b5 = x.b6;
+  y.b6 = x.b7;
+  y.b7 = bit_from_int(0);
+  return y;
+}
 
 
-struct bits8 bits8_mul(struct bits8 x, struct bits8 y);
+
+// Implement multiplication of two bits8 using logic, shift, and add
+struct bits8 bits8_mul(struct bits8 x, struct bits8 y){
+  printf("%d", bits8_to_int(y));
+  struct bits8 result = bits8_from_int(0);
+  printf("\n");
+  bits8_print(x);
+  printf("\n");
+  struct bits8 x_ = bits8_shl(x);
+  printf("\n");
+  bits8_print(x_);
+
+  return result;
+}
