@@ -133,7 +133,6 @@ int read_uint_le(FILE *f, uint32_t *out) {
   int b0, b1, b2, b3;
   //fgetc reads a single byte from a file
   b0 = fgetc(f);
-½
   if (b0 == EOF) {
     return EOF;
   }
