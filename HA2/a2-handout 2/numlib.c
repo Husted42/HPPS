@@ -232,7 +232,7 @@ int write_uint_be(FILE *f, uint32_t x) {
 
 // -> Not implemented
 int write_double_bin(FILE *f, double x) {
-  if (fprintf(f, "%b", x) < 0) {
+  if (fprintf(f, "%f", x) < 0) {
     return 1;
   } else {
     return 0;
