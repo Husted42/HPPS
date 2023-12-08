@@ -48,12 +48,12 @@ int read_uint_ascii(FILE *f, uint32_t *out) {
 
 // Dividing num by 10 to the power of decimal. 
 // The fuction stores input(num) with input(decimal) number of decimals in out
-void divide_by_power_of_ten(double num, int decimal, double* out) {
+void divide_by_power_of_ten(int decimal, double* out) {
     double divisor = 1.0;
     for(int i = 0; i < decimal; i++) {
         divisor *= 10.0;
     }
-    *out = num / divisor;
+    *out = divisor;
 }
 
 // make double_ascii_to_double_bin && make double_bin_to_double_ascii && echo 123 456 789 | ./double_ascii_to_double_bin | ./double_bin_to_double_ascii
@@ -76,19 +76,19 @@ int read_double_ascii(FILE *f, double *out) {
   
   while (1) {
     int c = fgetc(f);
-
-    // Check if the character read in file is a single number
+  
     if (c >= '0' && c <= '9') {
       num = num * 10 + (c - '0');
+      // When we get to a decimal point, we need to read the next characters as decimals
     } else if (c == '.') {
+      int decimal = 0;
 
       while (1) {
         c = fgetc(f);
         if (c >= '0' && c <= '9') {
-          // Converting Character to Numeric Value (c - '0')
           num = num * 10 + (c - '0');
+          decimal++;
         } else {
-          // If c is not a digt, we check if it is a space
           if (c != EOF) {
             ungetc(c, f);
           }
@@ -99,6 +99,9 @@ int read_double_ascii(FILE *f, double *out) {
               return 1;
             }
           } else {
+            double pow;
+            divide_by_power_of_ten(decimal, &pow);
+            *out = num / pow;
             return 0;
           }
         }
@@ -139,11 +142,6 @@ int read_uint_le(FILE *f, uint32_t *out) {
   b1 = fgetc(f);
   b2 = fgetc(f);
   b3 = fgetc(f);
-  // printf("b0: %X, %d \n", b0, b0);
-  // printf("b1: %X, %d \n", b1, b1 << 8);
-  // printf("b2: %X, %d \n", b2, b2 << 16);
-  // printf("b3: %X, %d \n", b3, b3 << 24);
-
 
   if (b1 == EOF || b2 == EOF || b3 == EOF) {
     return 1;
@@ -192,35 +190,11 @@ int read_uint_be(FILE *f, uint32_t *out) {
 // Same logic as for the uint, but now we have 8 bytes
 // We use little endian
 int read_double_bin(FILE *f, double *out) {
-  // (void)f;
-  // (void)out;
   // sizeof(double)==8 and use little endian
-  int b0, b1, b2, b3, b4, b5, b6, b7;
-  b0 = fgetc(f);
-
-  if (b0 == EOF) {
-    return EOF;
-  }
-
-  b1 = fgetc(f);
-  b2 = fgetc(f);
-  b3 = fgetc(f);
-  b4 = fgetc(f);
-  b5 = fgetc(f);
-  b6 = fgetc(f);
-  b7 = fgetc(f);
-  if (b1 == EOF || b2 == EOF || b3 == EOF || b4 == EOF || b5 == EOF || b6 == EOF) {
+  char bytes[sizeof(double)];
+  if (fread(bytes, sizeof(char), sizeof(double), f) != 8) {
     return 1;
   }
-  *out = 
-    ((uint64_t)b0) |
-    ((uint64_t)b1 << 8) |
-    ((uint64_t)b2 << 16) |
-    ((uint64_t)b3 << 24) |
-    ((uint64_t)b4 << 32) |
-    ((uint64_t)b5 << 40) |
-    ((uint64_t)b6 << 48) |
-    ((uint64_t)b7 << 56);
   return 0;
 }
 
@@ -231,7 +205,7 @@ int write_uint_ascii(FILE *f, uint32_t x) {
     return 0;
   }
 }
-// -> Not implemented
+
 int write_double_ascii(FILE *f, double x) {
   if (fprintf(f, "%f", x) < 0) {
     return 1;
@@ -258,6 +232,9 @@ int write_uint_be(FILE *f, uint32_t x) {
 
 // -> Not implemented
 int write_double_bin(FILE *f, double x) {
-  (void)f; (void)x;
-  assert(0);
+  if (fprintf(f, "%b", x) < 0) {
+    return 1;
+  } else {
+    return 0;
+  }
 }
