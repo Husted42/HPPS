@@ -163,21 +163,17 @@ int read_uint_be(FILE *f, uint32_t *out) {
   int b0, b1, b2, b3;
 
   b0 = fgetc(f);
-
   if (b0 == EOF) {
     return EOF;
   }
-
 
   b1 = fgetc(f);
   b2 = fgetc(f);
   b3 = fgetc(f);
 
-
   if (b1 == EOF || b2 == EOF || b3 == EOF) {
     return 1;
   }
-
 
   *out =
     ((uint32_t)b0 << 24) |
@@ -187,14 +183,13 @@ int read_uint_be(FILE *f, uint32_t *out) {
   return 0;
 }
 
-// Same logic as for the uint, but now we have 8 bytes
-// We use little endian
 int read_double_bin(FILE *f, double *out) {
   // sizeof(double)==8 and use little endian
   char bytes[sizeof(double)];
-  if (fread(bytes, sizeof(char), sizeof(double), f) != 8) {
+  if (fread(bytes, sizeof(char), sizeof(double), f) != sizeof(double)) {
     return 1;
   }
+  *out = *((double*)bytes);
   return 0;
 }
 
@@ -215,16 +210,16 @@ int write_double_ascii(FILE *f, double x) {
 }
 
 int write_uint_le(FILE *f, uint32_t x) {
-  fputc(x>>0,  f);
-  fputc(x>>8,  f);
+  fputc(x>>0, f);
+  fputc(x>>8, f);
   fputc(x>>16, f);
   fputc(x>>24, f);
   return 0;
 }
 
 int write_uint_be(FILE *f, uint32_t x) {
-  fputc(x>>24,  f);
-  fputc(x>>16,  f);
+  fputc(x>>24, f);
+  fputc(x>>16, f);
   fputc(x>>8, f);
   fputc(x>>0, f);
   return 0;
@@ -232,9 +227,9 @@ int write_uint_be(FILE *f, uint32_t x) {
 
 // -> Not implemented
 int write_double_bin(FILE *f, double x) {
-  if (fprintf(f, "%b", x) < 0) {
+  if (fwrite(&x, sizeof(char), sizeof(double), f) != sizeof(double)) 
+  {
     return 1;
-  } else {
-    return 0;
   }
+  return 0;
 }
