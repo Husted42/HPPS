@@ -1,4 +1,4 @@
-CFLAGS ?= -std=c99 -Wall -Wextra -pedantic
+CFLAGS ?= -std=c99 -Wall -Wextra -pedantic 
 CC ?= cc
 # The backslashes are for line continuation, so we can have a program per line.
 PROGRAMS = \
@@ -13,6 +13,7 @@ PROGRAMS = \
     double_ascii_to_double_ascii \
     double_ascii_to_double_bin \
     uint_le_to_double_bin \
+    avg_doubles \
     test
 
 all: $(PROGRAMS)
