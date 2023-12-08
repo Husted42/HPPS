@@ -1,11 +1,6 @@
 #include <stdlib.h>
 #include "numbers.h"
 
-//// Variables
-// struct bits8 nine = bits8_from_int(9);
-// struct bits8 elleven = bits8_from_int(11);
-// struct bits8 one = bits8_from_int(1);
-
 int test_bits8_from_to_int() {
   struct bits8 a = bits8_from_int(9);
   struct bits8 b = bits8_from_int(11);
@@ -49,7 +44,6 @@ int testNegation() {
   struct bits8 c = bits8_from_int(1);
 
   printf("---- Test for negation: -----\n");
-  // test for 9
   printf("%d: negation of ", bits8_to_int(a));
   bits8_print(a);
   printf(" is ");
@@ -74,7 +68,7 @@ int test_multipliction(){
   struct bits8 t_2 = bits8_mul(bits8_from_int(36), bits8_from_int(2));
   struct bits8 t_3 = bits8_mul(bits8_from_int(120), bits8_from_int(2));
   struct bits8 t_4 = bits8_mul(bits8_from_int(9), bits8_from_int(11));
-  // for loop iterating through t_0 to t_4
+
   printf("---- Test for multiplication: -----\n");
   printf("15 * 1 = %d: ", bits8_to_int(t_0)); // 15
   bits8_print(t_0);
@@ -96,14 +90,73 @@ int test_multipliction(){
   return 0;
 }
 
+int test_additon_negative() {
+  struct bits8 a; // -1
+  a.b0 = bit_from_int(1);
+  a.b1 = bit_from_int(1);
+  a.b2 = bit_from_int(1);
+  a.b3 = bit_from_int(1);
+  a.b4 = bit_from_int(1);
+  a.b5 = bit_from_int(1);
+  a.b6 = bit_from_int(1);
+  a.b7 = bit_from_int(1);
+  struct bits8 b; // -2
+  b.b0 = bit_from_int(0);
+  b.b1 = bit_from_int(1);
+  b.b2 = bit_from_int(1);
+  b.b3 = bit_from_int(1);
+  b.b4 = bit_from_int(1);
+  b.b5 = bit_from_int(1);
+  b.b6 = bit_from_int(1);
+  b.b7 = bit_from_int(1);
+
+  printf("---- Test for negative addition: -----\n");
+  bits8_print(a);
+  printf(" + ");
+  bits8_print(b);
+  printf(" = ");
+  bits8_print(bits8_add(a, b));
+  printf("\n\n");
+  return 0;
+
+}
+
+int test_multiplication_negative() {
+  struct bits8 a; // -1
+  a.b0 = bit_from_int(1);
+  a.b1 = bit_from_int(1);
+  a.b2 = bit_from_int(1);
+  a.b3 = bit_from_int(1);
+  a.b4 = bit_from_int(1);
+  a.b5 = bit_from_int(1);
+  a.b6 = bit_from_int(1);
+  a.b7 = bit_from_int(1);
+  struct bits8 b; // -2
+  b.b0 = bit_from_int(0);
+  b.b1 = bit_from_int(1);
+  b.b2 = bit_from_int(1);
+  b.b3 = bit_from_int(1);
+  b.b4 = bit_from_int(1);
+  b.b5 = bit_from_int(1);
+  b.b6 = bit_from_int(1);
+  b.b7 = bit_from_int(1);
+
+  printf("---- Test for negative multiplication: -----\n");
+  bits8_print(a);
+  printf(" * ");
+  bits8_print(b);
+  printf(" = ");
+  bits8_print(bits8_mul(a,b));
+  return 1;
+}
+
 int main() {
-  // unsigned int x = 11;
-  // unsigned int b = bits8_to_int(bits8_from_int(x));
-  // bits8_print(bits8_from_int(x));
-  test_bits8_from_to_int();
-  test_additon();
-  testNegation();
-  test_multipliction();
+  // test_bits8_from_to_int();
+  // test_additon();
+  // testNegation();
+  // test_multipliction();
+  // test_additon_negative();
+  test_multiplication_negative();
   printf("\n\nhello world!\n");
   return 0;
 }

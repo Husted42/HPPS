@@ -1,6 +1,8 @@
 #include "numlib.h"
 #include <assert.h>
 
+
+// echo 123 456 789 | ./double_ascii_to_double_bin | ./double_bin_to_double_ascii
 int main(int argc, char* argv[]) {
   assert(argc == 1);
   while (1) {
