@@ -133,7 +133,7 @@ int read_uint_le(FILE *f, uint32_t *out) {
   int b0, b1, b2, b3;
   //fgetc reads a single byte from a file
   b0 = fgetc(f);
-
+½
   if (b0 == EOF) {
     return EOF;
   }
@@ -225,7 +225,6 @@ int write_uint_be(FILE *f, uint32_t x) {
   return 0;
 }
 
-// -> Not implemented
 int write_double_bin(FILE *f, double x) {
   if (fwrite(&x, sizeof(char), sizeof(double), f) != sizeof(double)) 
   {
