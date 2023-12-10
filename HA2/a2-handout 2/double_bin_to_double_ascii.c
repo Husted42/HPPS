@@ -11,10 +11,11 @@ int main(int argc, char* argv[]) {
         fprintf(stderr, "%s: output error\n", argv[0]);
         return 1;
       }
+      printf("\n");
     } else if (r == EOF) {
       return 0;
     } else {
-      printf("\n");
+      fprintf(stderr, "%s: input error\n", argv[0]);
       return 1;
     }
   }
