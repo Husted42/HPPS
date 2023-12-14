@@ -5,6 +5,11 @@
 #include <stdio.h>
 #include <assert.h>
 #include <math.h>
+// construction of a k-d tree and performing k-NN lookups in the tree. The two struct definitions are
+// given, and do not have to be modified (but you are allowed to modify
+// them if you believe you can do better than us). Further, there is a
+// function kdtree svg() that visualises the tree structure when called
+// from knn-svg.c, which may be useful for debugging (or just pretty pictures).
 
 struct node {
   // Index of this node's point in the corresponding 'indexes' array.
