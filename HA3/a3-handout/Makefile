@@ -1,5 +1,5 @@
 CC?=gcc
-CFLAGS?=-Wextra -Wall -pedantic -std=c99 -g
+CFLAGS?=-Wextra -Wall -pedantic -std=c99 -g -fsanitize=address
 LDFLAGS?=-lm
 
 all: sort-example knn-bruteforce knn-svg knn-kdtree knn-genpoints

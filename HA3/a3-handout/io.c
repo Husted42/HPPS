@@ -4,6 +4,9 @@
 #include <stdint.h>
 #include <assert.h>
 
+// Reading and writing data files that contain points and indexes of point. The exercise tasks involved writing exactly this
+// code, so you can use your own solution from there, or use the one we gave you
+
 double* read_points(FILE *f, int* n_out, int *d_out) {
   assert(0);
 }
