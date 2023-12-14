@@ -1,5 +1,5 @@
 CFLAGS ?= -std=c99 -Wall -Wextra -pedantic -fsanitize=address -g
-CC ?= cc
+CC ?= cc 
 # The backslashes are for line continuation, so we can have a program per line.
 PROGRAMS = \
     uint_le_to_uint_ascii \
@@ -21,4 +21,4 @@ all: $(PROGRAMS)
 	$(CC) $^ -o $@ $(CFLAGS)
 
 clean:
-	rm -f $(PROGRAMS)
+	rm -f $(PROGRAMS) 
