@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <assert.h>
 #include <math.h>
+#include <string.h>
 // construction of a k-d tree and performing k-NN lookups in the tree. The two struct definitions are
 // given, and do not have to be modified (but you are allowed to modify
 // them if you believe you can do better than us). Further, there is a
@@ -31,10 +32,30 @@ struct kdtree {
   struct node* root;
 };
 
-struct node* kdtree_create_node(int d, const double *points,
-                                int depth, int n, int *indexes) {
-  assert(0);
+struct node* kdtree_create_node(int d, const double *points, int depth, int n, int *indexes) {
+    if (n <= 0) {
+        return NULL;
+    }
+
+    int axis = depth % d;
+    // Sort indexes based on the axis
+
+    // Find median index
+    int medianIndex = indexes[n / 2];
+
+    // Create a new node
+    struct node* node = malloc(sizeof(struct node));
+    node->point_index = medianIndex;
+    node->axis = axis;
+
+    // Recursively build the left and right subtrees
+    node->left = kdtree_create_node(d, points, depth + 1, medianIndex, indexes);
+    node->right = kdtree_create_node(d, points, depth + 1, n - medianIndex - 1, indexes + medianIndex + 1);
+
+    return node;
 }
+
+
 
 struct kdtree *kdtree_create(int d, int n, const double *points) {
   struct kdtree *tree = malloc(sizeof(struct kdtree));
