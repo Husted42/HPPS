@@ -8,6 +8,7 @@ int main(int argc, char* argv[]) {
   while (1) {
     double x;
     int r = read_double_ascii(stdin, &x);
+    printf("r: %f\n", x);
     if (r == 0) {
       if (write_double_bin(stdout, x) != 0) {
         fprintf(stderr, "%s: output error\n", argv[0]);
