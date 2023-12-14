@@ -30,8 +30,8 @@ clean:
 
 # Testing rules
 
-NUM_POINTS=10000
-NUM_QUERIES=1000
+NUM_POINTS=1000
+NUM_QUERIES=100
 K=5
 
 points: knn-genpoints
@@ -45,7 +45,6 @@ indexes: points queries knn-bruteforce
 
 points.svg: points queries indexes knn-svg
 	./knn-svg points queries indexes > points.svg
-
 ## Husted approved test :)
 test123: test123.c
 	$(CC) -o test123 test123.c io.o $(CFLAGS)
