@@ -24,7 +24,7 @@ int* knn(int k, int d, int n, const double *points, const double* query) {
   }
 
   // Sort the distances in ascending order
-  qsort(distances, n, sizeof(double), compare_double); // Add the missing qsort function call
+  qsort(distances, n, sizeof(double), compare_double);
 
   // Allocate memory for the result array
   int* result = (int*)malloc(k * sizeof(int));
