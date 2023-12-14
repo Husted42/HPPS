@@ -36,7 +36,6 @@ double* read_points(FILE *f, int* n_out, int *d_out) {
 }
 
 int* read_indexes(FILE *f, int *n_out, int *k_out) {
-  assert(0);
   int read;
   int32_t n, k;
 
@@ -65,7 +64,6 @@ int* read_indexes(FILE *f, int *n_out, int *k_out) {
 }
 
 int write_points(FILE *f, int32_t n, int32_t d, double *data) {
-  assert(0);
   if (fwrite(&n, sizeof(int32_t), 1, f) != 1) {
     return 1;
   }
@@ -84,7 +82,6 @@ int write_points(FILE *f, int32_t n, int32_t d, double *data) {
 }
 
 int write_indexes(FILE *f, int32_t n, int32_t k, int *data) {
-  assert(0);
   if (fwrite(&n, sizeof(int32_t), 1, f) != 1) {
     return 1;
   }
