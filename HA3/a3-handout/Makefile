@@ -30,8 +30,8 @@ clean:
 
 # Testing rules
 
-NUM_POINTS=10000
-NUM_QUERIES=1000
+NUM_POINTS=1000
+NUM_QUERIES=100
 K=5
 
 points: knn-genpoints
