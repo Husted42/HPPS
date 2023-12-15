@@ -45,6 +45,4 @@ indexes: points queries knn-bruteforce knn-kdtree
 
 points.svg: points queries indexes knn-svg
 	./knn-svg points queries indexes > points.svg
-## Husted approved test :)
-test123: test123.c
-	$(CC) -o test123 test123.c io.o $(CFLAGS)
+
