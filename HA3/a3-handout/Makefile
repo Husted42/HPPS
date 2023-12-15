@@ -1,5 +1,5 @@
 CC?=gcc
-CFLAGS?=-Wextra -Wall -pedantic -std=c99 -g 
+CFLAGS?=-Wextra -Wall -pedantic -std=c99 -g -O2
 LDFLAGS?=-lm
 
 all: sort-example knn-bruteforce knn-svg knn-kdtree knn-genpoints
@@ -30,8 +30,8 @@ clean:
 
 # Testing rules
 
-NUM_POINTS=1000
-NUM_QUERIES=100
+NUM_POINTS=10000
+NUM_QUERIES=1000
 K=5
 
 points: knn-genpoints
@@ -40,7 +40,7 @@ points: knn-genpoints
 queries: knn-genpoints
 	./knn-genpoints $(NUM_QUERIES) 2 > queries
 
-indexes: points queries knn-bruteforce
+indexes: points queries knn-bruteforce knn-kdtree
 	./knn-bruteforce points queries $(K) indexes
 
 points.svg: points queries indexes knn-svg
