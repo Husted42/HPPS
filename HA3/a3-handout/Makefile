@@ -1,5 +1,5 @@
 CC?=gcc
-CFLAGS?=-Wextra -Wall -pedantic -std=c99 -g 
+CFLAGS?=-Wextra -Wall -pedantic -std=c99 -g -O2
 LDFLAGS?=-lm
 
 all: sort-example knn-bruteforce knn-svg knn-kdtree knn-genpoints
@@ -7,7 +7,7 @@ all: sort-example knn-bruteforce knn-svg knn-kdtree knn-genpoints
 sort-example: sort-example.o sort.o
 	$(CC) -o $@ $^ $(LDFLAGS)
 
-knn-bruteforce: knn-bruteforce.o bruteforce.o io.o util.o
+knn-bruteforce: knn-bruteforce.o bruteforce.o io.o util.o sort.o
 	$(CC) -o $@ $^ $(LDFLAGS)
 
 knn-kdtree: knn-kdtree.o bruteforce.o io.o util.o kdtree.o sort.o
@@ -30,9 +30,9 @@ clean:
 
 # Testing rules
 
-NUM_POINTS=10000
-NUM_QUERIES=1000
-K=5
+NUM_POINTS=100000
+NUM_QUERIES=5000
+K=100
 
 points: knn-genpoints
 	./knn-genpoints $(NUM_POINTS) 2 > points
@@ -40,8 +40,9 @@ points: knn-genpoints
 queries: knn-genpoints
 	./knn-genpoints $(NUM_QUERIES) 2 > queries
 
-indexes: points queries knn-bruteforce
+indexes: points queries knn-bruteforce knn-kdtree
 	./knn-bruteforce points queries $(K) indexes
 
 points.svg: points queries indexes knn-svg
 	./knn-svg points queries indexes > points.svg
+
