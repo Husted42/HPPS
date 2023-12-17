@@ -30,9 +30,9 @@ clean:
 
 # Testing rules
 
-NUM_POINTS=10000
-NUM_QUERIES=1000
-K=5
+NUM_POINTS=100000
+NUM_QUERIES=5000
+K=100
 
 points: knn-genpoints
 	./knn-genpoints $(NUM_POINTS) 2 > points
