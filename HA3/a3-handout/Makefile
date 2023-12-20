@@ -30,9 +30,15 @@ clean:
 
 # Testing rules
 
+<<<<<<< HEAD
 NUM_POINTS=100000
 NUM_QUERIES=5000
 K=100
+=======
+NUM_POINTS=1000
+NUM_QUERIES=100
+K=10
+>>>>>>> 96c1383983f096929b5d20a9c3f89e5aa502dfb1
 
 points: knn-genpoints
 	./knn-genpoints $(NUM_POINTS) 2 > points
@@ -45,4 +51,3 @@ indexes: points queries knn-bruteforce knn-kdtree
 
 points.svg: points queries indexes knn-svg
 	./knn-svg points queries indexes > points.svg
-
