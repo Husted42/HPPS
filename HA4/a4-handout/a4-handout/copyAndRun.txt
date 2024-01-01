@@ -1,0 +1,1 @@
+./coord_query_naive 20000records.tsv
