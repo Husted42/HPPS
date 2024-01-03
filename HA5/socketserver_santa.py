@@ -8,19 +8,59 @@ from threading import Lock
 
 # A handler function, called on each incoming message to the server
 class SantaHandler(socketserver.StreamRequestHandler):
-    def handle(self):
-        # Read the message
-        msg = self.request.recv(MAX_MSG_LEN)
+    lock = Lock()
+    with lock: 
+        def handle(self):
+            reindeer_counter = []
+            # Read the message
+            msg = self.request.recv(MAX_MSG_LEN)
 
-        # TODO You must implement a handler function that can handle mutiple 
-        # different messages at the same time. This might be heavily 'inspired'
-        # by naive_santa.py, but must also account for any concurrency issues 
-        # (races and deadlock) that arise from this
+            # If the message has an additional payload, then separate the variables
+            if b'-' in msg:
+                body = msg[msg.index(b'-')+1:]
+                msg = msg[:msg.index(b'-')]
 
-        # Checkin function will 'check in' with a checkin process, if one is 
-        # available. This can be removed if you are confident in your answer 
-        # and want to avoid the slowdown it adds
-        checkin(f"Santa")
+            if msg.startswith(b'over'):
+                reindeer_host = body[:body.index(b':')].decode()
+                reindeer_port = int(body[body.index(b':')+1:].decode())
+                print(reindeer_host, reindeer_port)
+
+                # Locking for thread safety
+                # with self.server.lock:
+                self.server.reindeer_counter.append((reindeer_host, reindeer_port))
+                print(len(self.server.reindeer_counter))
+                if len(self.server.reindeer_counter) >= self.server.num_reindeer:
+                        # Clear the elf counter when 3 elves have reported
+                    for host, port in self.server.reindeer_counter:
+                        sending_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                        sending_socket.connect((host, port))
+                        sending_socket.sendall(MSG_DELIVER_PRESENTS)
+                        sending_socket.close()
+                    self.server.reindeer_counter.clear()
+                    print(f"Santa is delivering presents with all {self.server.num_reindeer} the reindeer")
+
+            elif msg.startswith(b'problem'):
+                elf_host = body[:body.index(b':')].decode()
+                elf_port = int(body[body.index(b':')+1:].decode())
+                print(elf_host, elf_port)
+
+                # Locking for thread safety
+                # with self.server.lock:
+                self.server.elf_counter.append((elf_host, elf_port))
+                print(self.server.elf_counter)
+                if len(self.server.elf_counter) >= 3:
+                    for host, port in self.server.elf_counter:
+                        sending_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                        sending_socket.connect((host, port))
+                        sending_socket.sendall(MSG_SORT_PROBLEM)
+                        sending_socket.close()
+                        # Clear the elf counter when 3 elves have reported
+                    self.server.elf_counter.clear()
+
+            else:
+                print(msg)
+
+            checkin(f"Santa")
 
 # A socketserver class to run santa as a constant server
 class SantaServer(socketserver.ThreadingTCPServer):
@@ -35,6 +75,7 @@ class SantaServer(socketserver.ThreadingTCPServer):
         # Setup the lists for collecting reindeer and elf addresses
         self.reindeer_counter = []
         self.elf_counter = []
+        # self.lock = Lock()  # Adding a lock for thread-safe access to elf_counter
 
 # Base santa function, to be called as a process
 def santa(host, port, num_reindeer, elf_group):
