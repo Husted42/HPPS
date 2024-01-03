@@ -154,7 +154,6 @@ void kdtree_knn_node(const struct kdtree *tree, int k, const double* query,
     *radius = highest;
   }
 
-
   if(diff >= 0 || *radius > fabs(diff)){
     if(node->left != NULL){
       kdtree_knn_node(tree,k,query,closest,radius,node->left);
