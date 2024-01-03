@@ -9,8 +9,7 @@ class SantaHandler(socketserver.StreamRequestHandler):
     def handle(self):
         # Read the message
         msg = self.request.recv(MAX_MSG_LEN)
-        print("Message to santa: ", msg) 
-
+        
         # If santa is told to deliver presents, then deliver he shall
         if msg == MSG_DELIVER_PRESENTS:
             print(f"Santa is delivering presents")

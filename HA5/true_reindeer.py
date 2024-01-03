@@ -37,14 +37,11 @@ def wait_for_reply(me, listening_socket, my_host, my_port):
     while msg != MSG_DELIVER_PRESENTS: 
         # Read from the connection
         msg = connection.recv(MAX_MSG_LEN)
-        print("In reindeer: ", msg)
         # If we get something we didn't expect then abort
         if msg != MSG_DELIVER_PRESENTS:
             print(f"Reindeer {me} recieved an unknown instruction")
             exit()
     print(f"Reindeer {me} is delivering presents")
-
-
 
 # Base reindeer function, to be called as a process
 def reindeer(me, my_host, my_port, stable_host, stable_port):
