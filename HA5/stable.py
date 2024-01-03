@@ -26,10 +26,10 @@ class StableHandler(socketserver.StreamRequestHandler):
 
                 # Append them to a list of collected reindeer addresses
                 self.server.reindeer_counter.append((reindeer_host, reindeer_port))
-
+                
                 # If we've collected all reindeer addresses, then tell them all 
                 # that we can deliver
-                print("No. of reindeer: ", len(self.server.reindeer_counter))
+                print("No. of reindeer in the stable: ", len(self.server.reindeer_counter))
                 if len(self.server.reindeer_counter) == self.server.num_reindeer:
                     # Deliver presents                
                     print(f"The stable is full of {self.server.num_reindeer} reindeers: \n  _______________\n< Hello, world! >\n ---------------\n        \   ^__^\n         \  (oo)\_______\n            (__)\       )\/ \n                ||----w |\n                ||     ||")
@@ -54,8 +54,6 @@ class StableServer(socketserver.ThreadingTCPServer):
         self.santa_host = santa_host
         self.santa_port = santa_port
         self.reindeer_counter = []
-
-        # TODO you must decide on any additional variables to set up here
  
 # Base stable function, to be called as a process
 def stable(my_host, my_port, santa_host, santa_port, num_reindeer):
