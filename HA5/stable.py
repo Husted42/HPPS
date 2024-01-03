@@ -27,8 +27,6 @@ class StableHandler(socketserver.StreamRequestHandler):
                 # Append them to a list of collected reindeer addresses
                 self.server.reindeer_counter.append((reindeer_host, reindeer_port))
                 
-                # self.server.reindeer_counter.append((self.server.santa_host, self.server.santa_port))
-
                 # If we've collected all reindeer addresses, then tell them all 
                 # that we can deliver
                 print("No. of reindeer: ", len(self.server.reindeer_counter))
