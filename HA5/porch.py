@@ -7,14 +7,40 @@ from threading import Lock
 
 # A handler function, called on each incoming message to the server
 class PorchHandler(socketserver.StreamRequestHandler):
-    def handle(self):
+    lock = Lock()
+    with lock:
+        def handle(self):
+            # Read the message
+            msg = self.request.recv(MAX_MSG_LEN)
 
-        # TODO You must decide how to implement the porch handler, so that it 
-        # can recieve messages from a given number of elves that they have 
-        # problems building toys. The porch should then inform the first 
-        # elf that it must inform the others and santa that it is time to sort 
-        # problems
-        pass
+            if b'-' in msg:
+                body = msg[msg.index(b'-')+1:]
+                msg = msg[:msg.index(b'-')]
+
+            if msg.startswith(b'problem'):
+                '''For test: '''
+                # print("PorchHandler got message: ", msg)
+                # print("Elf: ", elf_host, elf_port)
+                # print("Elf list: ", self.server.elf_counter)
+                elf_host = body[:body.index(b':')].decode()
+                elf_port = int(body[body.index(b':')+1:].decode())
+                
+
+                # Locking for thread safety
+                # with self.server.lock:
+                self.server.elf_counter.append((elf_host, elf_port))
+                if len(self.server.elf_counter) >= 3:
+                    for host, port in self.server.elf_counter:
+                        sending_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                        sending_socket.connect((host, port))
+                        sending_socket.sendall(MSG_SORT_PROBLEM)
+                        sending_socket.close()
+                        # Clear the elf counter when 3 elves have reported
+
+                    self.server.elf_counter.clear()
+            else:
+                print("Error - PorchHandler got message: ", msg)
+    pass
 
 # A socketserver class to run the porch as a constant server
 class PorchServer(socketserver.ThreadingTCPServer):

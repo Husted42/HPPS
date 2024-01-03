@@ -56,9 +56,8 @@ class SantaHandler(socketserver.StreamRequestHandler):
                         sending_socket.close()
                         # Clear the elf counter when 3 elves have reported
                     self.server.elf_counter.clear()
-
             else:
-                print(msg)
+                print("Error - SantaHandler got message: ", msg)
 
             checkin(f"Santa")
 
