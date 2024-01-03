@@ -1,4 +1,3 @@
-
 import socket
 import sys
 
@@ -14,6 +13,7 @@ def santa(host, port, num_reindeer, elf_group):
 
     # Setup the lists for collecting reindeer and elf addresses (hint)
     reindeer_counter = []
+    elf_counter = []
 
     # Run forever, its a thankless life always being awoken by these reindeer 
     # and elves
@@ -56,11 +56,24 @@ def santa(host, port, num_reindeer, elf_group):
 
         # This message will be sent by any elves that encounter a problem
         elif msg == MSG_PROBLEM:
-            # TODO You need to implement some code here that will message elves
-            # when enough of them have a problem. As in the case of reindeer 
-            # delivering presents, you just need to get santa and the relevent 
-            # elves printing a message at approximately the same time.
-            pass 
+            # Append the elf address to the list of collected elf addresses
+            elf_host = body[:body.index(b':')].decode()
+            elf_port = int(body[body.index(b':')+1:].decode())
+
+            # Append them to a list of collected elf addresses
+            elf_counter.append((elf_host, elf_port))
+
+            # If we've collected a group of 3 elves, then respond to them
+            if len(elf_counter) == 3:
+                # Respond to the group of elves
+                print(f"Santa is responding to a group of 3 elves")
+                for host, port in elf_counter:
+                    sending_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                    sending_socket.connect((host, port))
+                    sending_socket.sendall(MSG_SORT_PROBLEM)
+                    sending_socket.close()
+                # Reset the elf address collection
+                elf_counter = []
 
         # If we get something we didn't expect then abort
         else:
