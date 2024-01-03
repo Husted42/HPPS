@@ -7,13 +7,40 @@ from threading import Lock
 
 # A handler function, called on each incoming message to the server
 class StableHandler(socketserver.StreamRequestHandler):
-    def handle(self):
+    lock = Lock()
+    with lock:
+        def handle(self):
+            reindeer_counter = []
+            # Read the message
+            msg = self.request.recv(MAX_MSG_LEN)
 
-        # TODO You must decide how to implement the stable handler, so that it 
-        # can recieve all reindeer messages that their holiday is done, and 
-        # then inform the last reindeer that it must inform the others and 
-        # santa that it is time to deliver presents       
-        pass
+            if b'-' in msg:
+                body = msg[msg.index(b'-')+1:]
+                msg = msg[:msg.index(b'-')]
+
+            if msg.startswith(b'over'):
+                # Part of the message will be the address of the reindeer, separate
+                # the two parts
+                reindeer_host = body[:body.index(b':')].decode()
+                reindeer_port = int(body[body.index(b':')+1:].decode())
+
+                # Append them to a list of collected reindeer addresses
+                self.server.reindeer_counter.append((reindeer_host, reindeer_port))
+
+                # If we've collected all reindeer addresses, then tell them all 
+                # that we can deliver
+                print("No. of reindeer: ", len(self.server.reindeer_counter))
+                if len(self.server.reindeer_counter) == self.server.num_reindeer:
+                    # Deliver presents                
+                    print(f"The stable is full of {self.server.num_reindeer} reindeers")
+                    # Tell each reindeer to deliver
+                    for host, port in self.server.reindeer_counter:
+                        sending_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                        sending_socket.connect((host, port))
+                        sending_socket.sendall(MSG_DELIVER_PRESENTS)
+                        sending_socket.close()
+                    # Reset the reindeer address collection
+                    self.server.reindeer_counter.clear()  
 
 # A socketserver class to run the stable as a constant server
 class StableServer(socketserver.ThreadingTCPServer):
@@ -26,6 +53,7 @@ class StableServer(socketserver.ThreadingTCPServer):
         self.num_reindeer = num_reindeer
         self.santa_host = santa_host
         self.santa_port = santa_port
+        self.reindeer_counter = []
 
         # TODO you must decide on any additional variables to set up here
  

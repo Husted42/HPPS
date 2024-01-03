@@ -32,8 +32,18 @@ def wait_for_reply(me, listening_socket, my_host, my_port):
     # Wait on the listening port to get a connection request
     connection, _ = listening_socket.accept()
 
-    # TODO You must implement how a reindeer will wait for a reply from the 
-    # stable. 
+    #TODO do code
+    msg = b''
+    while msg != MSG_DELIVER_PRESENTS: 
+        # Read from the connection
+        msg = connection.recv(MAX_MSG_LEN)
+        print("In reindeer: ", msg)
+        # If we get something we didn't expect then abort
+        if msg != MSG_DELIVER_PRESENTS:
+            print(f"Reindeer {me} recieved an unknown instruction")
+            exit()
+    print(f"Reindeer {me} is delivering presents")
+
 
 
 # Base reindeer function, to be called as a process
