@@ -44,8 +44,6 @@ def wait_for_reply(me, listening_socket, my_host, my_port):
             exit()
     print(f"Reindeer {me} is delivering presents")
 
-
-
 # Base reindeer function, to be called as a process
 def reindeer(me, my_host, my_port, stable_host, stable_port):
     # Open a listening socket. Doing so early means its definately open before 

@@ -54,8 +54,6 @@ class StableServer(socketserver.ThreadingTCPServer):
         self.santa_host = santa_host
         self.santa_port = santa_port
         self.reindeer_counter = []
-
-        # TODO you must decide on any additional variables to set up here
  
 # Base stable function, to be called as a process
 def stable(my_host, my_port, santa_host, santa_port, num_reindeer):
