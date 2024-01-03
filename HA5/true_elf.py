@@ -32,6 +32,14 @@ def wait_for_reply(me, listening_socket, my_host, my_port):
 
     # TODO You must implement how a reindeer will wait for a reply from the 
     # porch. 
+    # msg = b''
+    # while msg != MSG_SORT_PROBLEM: 
+    #     # Read from the connection
+    #     msg = connection.recv(MAX_MSG_LEN)
+    #     # If we get something we didn't expect then abort
+    #     if msg != MSG_SORT_PROBLEM:
+    #         print(f"Elf {me} recieved an unknown instruction")
+    #         exit()
 
 # Base elf function, to be called as a process
 def elf(me, my_host, my_port, porch_host, porch_port):
