@@ -31,7 +31,7 @@ class PorchHandler(socketserver.StreamRequestHandler):
 
                 # If we've collected all elf addresses, then tell them all 
                 # that we can deliver
-                print("No. of elf: ", len(self.server.elf_counter))
+                print("No. of elf on the porch: ", len(self.server.elf_counter))
                 if len(self.server.elf_counter) >= 3:
                     # Deliver presents               
                     print(f"The porch is full of {len(self.server.elf_counter)} elfs")

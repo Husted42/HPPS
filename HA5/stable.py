@@ -29,7 +29,7 @@ class StableHandler(socketserver.StreamRequestHandler):
                 
                 # If we've collected all reindeer addresses, then tell them all 
                 # that we can deliver
-                print("No. of reindeer: ", len(self.server.reindeer_counter))
+                print("No. of reindeer in the stable: ", len(self.server.reindeer_counter))
                 if len(self.server.reindeer_counter) == self.server.num_reindeer:
                     # Deliver presents               
                     self.server.reindeer_counter.append((self.server.santa_host, self.server.santa_port)) 
