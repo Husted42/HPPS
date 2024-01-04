@@ -80,11 +80,6 @@ def santa(host, port, num_reindeer, elf_group):
             print(f"Santa recieved an unknown instruction")
             exit()
 
-        # Checkin function will 'check in' with a checkin process, if one is 
-        # available. This can be removed if you are confident in your answer 
-        # and want to avoid the slowdown it adds
-        checkin("Santa")
-
 # As an alternative to using the naive_santa_problem.py, you may start a 
 # standalone santa as described in the handout
 if __name__ == "__main__":
