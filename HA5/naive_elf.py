@@ -41,7 +41,6 @@ def wait_for_reply(me, listening_socket):
 
 # Base elf function, to be called as a process
 def elf(me, my_host, my_port, santa_host, santa_port):
-    print(f"starting elf with {me}, {my_host}, {my_port}, {santa_host}, {santa_port}")
     # Open a listening socket. Doing so early means its definately open before 
     # we might need it
     listening_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

@@ -32,7 +32,6 @@ def wait_for_reply(me, listening_socket, my_host, my_port):
     # Wait on the listening port to get a connection request
     connection, _ = listening_socket.accept()
 
-    #TODO do code
     msg = b''
     while msg != MSG_DELIVER_PRESENTS: 
         # Read from the connection
