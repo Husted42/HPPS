@@ -17,11 +17,6 @@ class SantaHandler(socketserver.StreamRequestHandler):
         elif msg == MSG_SORT_PROBLEM:
             print(f"Santa is sorting problems")
 
-        # Checkin function will 'check in' with a checkin process, if one is 
-        # available. This can be removed if you are confident in your answer 
-        # and want to avoid the slowdown it adds
-        checkin(f"Santa")
-
 # A socketserver class to run santa as a constant server
 class SantaServer(socketserver.ThreadingTCPServer):
     # Constructor for our custom class. If we wish to add more variables or

@@ -60,8 +60,6 @@ class SantaHandler(socketserver.StreamRequestHandler):
             else:
                 print(msg)
 
-            checkin(f"Santa")
-
 # A socketserver class to run santa as a constant server
 class SantaServer(socketserver.ThreadingTCPServer):
     # Constructor for our custom class. If we wish to add more variables or
