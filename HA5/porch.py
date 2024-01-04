@@ -34,7 +34,7 @@ class PorchHandler(socketserver.StreamRequestHandler):
                 print("No. of elf on the porch: ", len(self.server.elf_counter))
                 if len(self.server.elf_counter) >= 3:
                     # Deliver presents               
-                    print(f"The porch is full of {len(self.server.elf_counter)} elfs")
+                    print(f"The porch is full of {len(self.server.elf_counter)} elfs: \n", self.server.elf_drawing)
                     self.server.elf_counter.append((self.server.santa_host, self.server.santa_port)) 
                     # Tell each elf to deliver
                     for host, port in self.server.elf_counter:
@@ -57,6 +57,8 @@ class PorchServer(socketserver.ThreadingTCPServer):
         self.elf_group = elf_group
         self.santa_host = santa_host
         self.santa_port = santa_port
+        self.elf_drawing =  "                     ___,@\n                    /  <\n               ,_  /    \  _,\n           ?    \`/______\`/\n        ,_(_).  |; (e  e) ;|\n         \___ \ \/\   7  /\/    _\8/_  \n             \/\   \\'=='/      | /| /|  \n              \ \___)--(_______|//|//|  \n               \___  ()  _____/|/_|/_|  \n                  /  ()  \     `----'  \n                 /   ()   \ \n                '-.______.-' \n              _    |_||_|   _ \n             (@____) || (____@) \n              \______||______/ "
+
         # Setup the list for collecting elf addresses
         self.elf_counter = []
         
