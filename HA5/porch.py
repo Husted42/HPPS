@@ -57,8 +57,6 @@ class PorchServer(socketserver.ThreadingTCPServer):
         # Setup the list for collecting elf addresses
         self.elf_counter = []
         
-
- 
 # Base porch function, to be called as a process
 def porch(my_host, my_port, santa_host, santa_port, elf_group):
     # Start a socketserver to always be listening

@@ -30,8 +30,6 @@ def wait_for_reply(me, listening_socket, my_host, my_port):
     # Wait on the listening port to get a connection request
     connection, _ = listening_socket.accept()
 
-    # TODO You must implement how a reindeer will wait for a reply from the 
-    # porch. 
     msg = b''
     while msg != MSG_SORT_PROBLEM: 
         # Read from the connection

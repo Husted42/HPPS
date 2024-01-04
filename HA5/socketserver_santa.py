@@ -55,7 +55,7 @@ class SantaHandler(socketserver.StreamRequestHandler):
                     print(f"Santa is responding to a group of 3 elves")
 
             else:
-                print(msg)
+                print("Error: Got an unknown message")
 
 # A socketserver class to run santa as a constant server
 class SantaServer(socketserver.ThreadingTCPServer):
