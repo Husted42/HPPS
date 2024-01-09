@@ -23,12 +23,10 @@ class SantaHandler(socketserver.StreamRequestHandler):
             if msg.startswith(b'over'):
                 reindeer_host = body[:body.index(b':')].decode()
                 reindeer_port = int(body[body.index(b':')+1:].decode())
-                print(reindeer_host, reindeer_port)
 
                 # Locking for thread safety
                 # with self.server.lock:
                 self.server.reindeer_counter.append((reindeer_host, reindeer_port))
-                print(len(self.server.reindeer_counter))
                 if len(self.server.reindeer_counter) >= self.server.num_reindeer:
                         # Clear the elf counter when 3 elves have reported
                     for host, port in self.server.reindeer_counter:
@@ -42,12 +40,10 @@ class SantaHandler(socketserver.StreamRequestHandler):
             elif msg.startswith(b'problem'):
                 elf_host = body[:body.index(b':')].decode()
                 elf_port = int(body[body.index(b':')+1:].decode())
-                print(elf_host, elf_port)
 
                 # Locking for thread safety
                 # with self.server.lock:
                 self.server.elf_counter.append((elf_host, elf_port))
-                print(self.server.elf_counter)
                 if len(self.server.elf_counter) >= 3:
                     for host, port in self.server.elf_counter:
                         sending_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -56,11 +52,10 @@ class SantaHandler(socketserver.StreamRequestHandler):
                         sending_socket.close()
                         # Clear the elf counter when 3 elves have reported
                     self.server.elf_counter.clear()
+                    print(f"Santa is responding to a group of 3 elves")
 
             else:
-                print(msg)
-
-            checkin(f"Santa")
+                print("Error: Got an unknown message")
 
 # A socketserver class to run santa as a constant server
 class SantaServer(socketserver.ThreadingTCPServer):
