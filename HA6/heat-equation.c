@@ -12,10 +12,12 @@ size_t pos(size_t width, size_t x, size_t y) {
 
 void write_borders(float* data, size_t width, size_t height) {
     size_t i;
+    #pragma omp parallel for
     for (i = 0; i < width; ++i){
         data[pos(width, i, 0)] = 20.0f;
         data[pos(width, i, height-1)] = -273.15f;
     }
+    #pragma omp parallel for
     for (i = 0; i < height; ++i){
         data[pos(width, 0, i)] = -273.15f;
         data[pos(width, width-1, i)] = -273.15f;
@@ -31,8 +33,8 @@ float stencil(float* data, size_t width, size_t x, size_t y, float alpha) {
 }
 
 void apply_stencil(float* data, size_t width, size_t height, size_t offset, float alpha) {
-    // (void)offset;
     size_t x, y;
+    #pragma omp parallel for private(y) 
     for (x=1; x < width-1; ++x){
         for (y=1+((x + offset) % 2); y < height-1; y +=2){
             data[pos(width, x, y)] = stencil(data, width, x, y, alpha);
@@ -43,6 +45,7 @@ void apply_stencil(float* data, size_t width, size_t height, size_t offset, floa
 float compute_delta(float* data, float* prev, size_t width, size_t height) {
     size_t i, j;
     float delta = 0.0f;
+    #pragma omp parallel for
     for (i=0; i < width-1; ++i){
         for (j=0; j < height; ++j){
             delta += fabs(prev[pos(width, i, j)] - data[pos(width, i, j)]);
