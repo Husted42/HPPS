@@ -22,7 +22,7 @@ clean:
 	rm -rf heat-equation *.o *.dSYM *.pyc *.so
 
 test: heat-equation
-	./heat-equation 50 50 1000
+	./heat-equation 5000 5000 1000
 
 steps_%.bmp: heat-equation
-	./heat-equation 50 50 $* $@
+	./heat-equation 500 500 $* $@

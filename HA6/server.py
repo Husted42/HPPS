@@ -20,7 +20,7 @@ width, height = (200, 200)
 steps_per_frame = 1
 
 # Set this to True to use the C-accelerated implementation.
-use_c = False
+use_c = True
 
 class Simulation:
     def __init__(self, width=500, height=500):
