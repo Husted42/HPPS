@@ -1,7 +1,7 @@
 OPENMP?=-fopenmp
 DEBUG?=-g
-CC?=gcc
-CFLAGS?=-Wextra -Wall -pedantic -std=c99 -fPIC
+CC=gcc-12
+CFLAGS?=-Wextra -Wall -pedantic -fPIC -g
 LDFLAGS?=-lm
 LIBFLAGS?=-shared
 
