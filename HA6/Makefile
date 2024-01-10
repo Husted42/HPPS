@@ -14,7 +14,7 @@ heat-equation.so: heat-equation.o debugbmp.o
 	$(CC) -o $@ $^ $(LDFLAGS) $(OPENMP) $(LIBFLAGS)
 
 # A general rule that tells us how to generate an .o file from a .c
-# file.  This cuts down on the boilerplate.
+# file. This cuts down on the boilerplate.
 %.o: %.c
 	$(CC) -c $< $(CFLAGS) $(DEBUG) $(OPENMP)
 
