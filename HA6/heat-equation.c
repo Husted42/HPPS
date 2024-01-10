@@ -10,14 +10,14 @@ size_t pos(size_t width, size_t x, size_t y) {
     return y*width + x;
 }
 
+// they only run for width and height iterations and just perform a simple assignment, 
+// the overhead of creating and managing multiple threads might outweigh the benefits of parallelization.
 void write_borders(float* data, size_t width, size_t height) {
     size_t i;
-    #pragma omp parallel for
     for (i = 0; i < width; ++i){
         data[pos(width, i, 0)] = 20.0f;
         data[pos(width, i, height-1)] = -273.15f;
     }
-    #pragma omp parallel for
     for (i = 0; i < height; ++i){
         data[pos(width, 0, i)] = -273.15f;
         data[pos(width, width-1, i)] = -273.15f;
@@ -34,7 +34,11 @@ float stencil(float* data, size_t width, size_t x, size_t y, float alpha) {
 
 void apply_stencil(float* data, size_t width, size_t height, size_t offset, float alpha) {
     size_t x, y;
-    #pragma omp parallel for private(y) 
+    // x and y are used as loop counters in the parallelized outer loop and the inner loop, respectively. 
+    // By declaring them as private, you ensure that each thread has its own copies of x and y, 
+    // which prevents race conditions that could occur if multiple threads were trying to update the same x or y variable simultaneously.
+    // So, in this context, private(x, y) is not only correct but also necessary for the correct execution of the parallelized code
+    #pragma omp parallel for private(x, y)
     for (x=1; x < width-1; ++x){
         for (y=1+((x + offset) % 2); y < height-1; y +=2){
             data[pos(width, x, y)] = stencil(data, width, x, y, alpha);
@@ -42,10 +46,11 @@ void apply_stencil(float* data, size_t width, size_t height, size_t offset, floa
     }
 }
 
+// This could potentially be parallelized with OpenMP, 
+// but you would need to use a reduction to compute the sum of delta across all threads.
 float compute_delta(float* data, float* prev, size_t width, size_t height) {
     size_t i, j;
     float delta = 0.0f;
-    #pragma omp parallel for
     for (i=0; i < width-1; ++i){
         for (j=0; j < height; ++j){
             delta += fabs(prev[pos(width, i, j)] - data[pos(width, i, j)]);
