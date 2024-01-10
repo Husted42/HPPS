@@ -51,7 +51,7 @@ float compute_delta(float* data, float* prev, size_t width, size_t height) {
             delta += diff * diff;
         }
     }
-    return sqrt(delta);
+    return delta/(width*height);
 }
 
 void run_simulation(size_t width, size_t height, size_t steps, const char* filename) {

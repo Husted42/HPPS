@@ -11,7 +11,7 @@
     Frame: <span id="counter">0</span>
 
     <p>
-      <img id="canvas" />
+      <img id="canvas" src="out.bmp" width="640" height="480" />
     </p>
 
     <p id="problem"></p>
@@ -34,7 +34,8 @@
               if (xhr.readyState === 4) {
                   if (xhr.status === 200) {
                       counter.innerText = "" + step;
-                      canvas.src = 'data:image/png;base64, ' + xhr.response;
+                      // canvas.src = 'data:image/png;base64, ' + xhr.response;
+                      canvas.src = 'out.bmp ' + xhr.response;
                       do_step();
                       step++;
                   } else {
