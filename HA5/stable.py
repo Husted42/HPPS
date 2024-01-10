@@ -29,10 +29,10 @@ class StableHandler(socketserver.StreamRequestHandler):
                 
                 # If we've collected all reindeer addresses, then tell them all 
                 # that we can deliver
-                print("No. of reindeer in the stable: ", len(self.server.reindeer_counter))
+                print("# of reindeer in the stable:", len(self.server.reindeer_counter))
                 if len(self.server.reindeer_counter) == self.server.num_reindeer:
                     # Deliver presents                
-                    print(f"The stable is full of {self.server.num_reindeer} reindeers: \n  _______________\n< Hello, world! >\n ---------------\n        \   ^__^\n         \  (oo)\_______\n            (__)\       )\/ \n                ||----w |\n                ||     ||")
+                    print(f"The stable is full of {self.server.num_reindeer} reindeer:\n ---------------\n< Hello, world! >\n ---------------\n        \   ^__^\n         \  (oo)\_______\n            (__)\       )\/ \n                ||----w |\n                ||     ||")
                     # Tell each reindeer to deliver
                     for host, port in self.server.reindeer_counter:
                         sending_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

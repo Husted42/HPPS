@@ -30,8 +30,6 @@ def wait_for_reply(me, listening_socket, my_host, my_port):
     # Wait on the listening port to get a connection request
     connection, _ = listening_socket.accept()
 
-    # TODO You must implement how a reindeer will wait for a reply from the 
-    # porch. 
     msg = b''
     while msg != MSG_SORT_PROBLEM: 
         # Read from the connection
@@ -53,10 +51,6 @@ def elf(me, my_host, my_port, porch_host, porch_port):
     while (1):
         build_presents(me, my_host, my_port, porch_host, porch_port)
         wait_for_reply(me, listening_socket, my_host, my_port)
-        # Checkin function will 'check in' with a checkin process, if one is 
-        # available. This can be removed if you are confident in your answer 
-        # and want to avoid the slowdown it adds
-        checkin(f"Elf {me}")
 
 # As an alternative to using the true_santa_problem.py, you may start a 
 # standalone elf as described in the handout

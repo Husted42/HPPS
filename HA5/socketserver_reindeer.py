@@ -53,10 +53,6 @@ def reindeer(me, my_host, my_port, santa_host, santa_port):
     while (1):
         go_on_holiday(me, my_host, my_port, santa_host, santa_port)
         wait_for_reply(me, listening_socket)
-        # Checkin function will 'check in' with a checkin process, if one is 
-        # available. This can be removed if you are confident in your answer 
-        # and want to avoid the slowdown it adds
-        checkin(f"Reindeer {me}")
 
 # As an alternative to using the socketserver_santa_problem.py, you may start a 
 # standalone reindeer as described in the handout

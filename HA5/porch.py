@@ -27,15 +27,13 @@ class PorchHandler(socketserver.StreamRequestHandler):
                 # Append them to a list of collected elf addresses
                 self.server.elf_counter.append((elf_host, elf_port))
                 
-                # self.server.elf_counter.append((self.server.santa_host, self.server.santa_port))
-
                 # If we've collected all elf addresses, then tell them all 
                 # that we can deliver
-                print("No. of elf on the porch: ", len(self.server.elf_counter))
+                print("# of elves on the porch:", len(self.server.elf_counter))
                 if len(self.server.elf_counter) >= 3:
                     # Deliver presents               
                     print(f"The porch is full of {len(self.server.elf_counter)} elfs")
-                    self.server.elf_counter.append((self.server.santa_host, self.server.santa_port)) 
+                    self.server.elf_counter.insert(0, (self.server.santa_host, self.server.santa_port)) 
                     # Tell each elf to deliver
                     for host, port in self.server.elf_counter:
                         sending_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -44,7 +42,6 @@ class PorchHandler(socketserver.StreamRequestHandler):
                         sending_socket.close()
                     # Reset the elf address collection
                     self.server.elf_counter.clear()  
-    # pass
 
 # A socketserver class to run the porch as a constant server
 class PorchServer(socketserver.ThreadingTCPServer):
@@ -60,8 +57,6 @@ class PorchServer(socketserver.ThreadingTCPServer):
         # Setup the list for collecting elf addresses
         self.elf_counter = []
         
-
- 
 # Base porch function, to be called as a process
 def porch(my_host, my_port, santa_host, santa_port, elf_group):
     # Start a socketserver to always be listening
