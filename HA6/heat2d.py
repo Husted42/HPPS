@@ -11,6 +11,7 @@ use_c = True
 # Prepare to load C library
 heateqclib = None
 
+
 def use_clib():
     global heateqclib
     heateqclib = ctypes.CDLL('./heat-equation.so')
